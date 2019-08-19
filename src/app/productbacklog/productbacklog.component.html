@@ -1,0 +1,75 @@
+<html>
+  <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!--its not an angular material-->
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+<app-navbar-log></app-navbar-log>
+<body style="height:80%">
+<br>
+<mat-card style="height:80%;" class="mycard mat-elevation-z5">
+    
+      <div style="width:40%;float:left;min-height:100%;">
+          <div *ngFor=" let feature of featureList let i = index" >
+              <div style ="font-weight: bold;font-size:115%">{{i+1}} :  {{feature.feature}}</div> 
+              <div *ngFor = "let story of feature.story">
+                  <li><a (click)="change(story,feature.feature)" style="cursor: pointer;color:blue;">{{story.story_number}}</a></li>
+              </div>
+              <br>
+            </div>
+        </div>
+        <div style="width:55%;float:right;height:100%;" *ngIf="showDivision==true">
+             <mat-card class="mat-elevation-z8" *ngIf="showDivision==true" style="float:left;width:90%;height:90%" >
+             <mat-card-content>
+                <div style ="font-weight: bold;font-size:125%;text-decoration: underline;display: inline">Feature</div><div style="display:inline; font-weight: bold;font-size:130%;"> : {{storyFeature}}</div>
+                <br><br>
+                <div style="font-size:115%;color:blue;display: inline;">{{story_number}}</div>  {{description}}<br><br>
+             </mat-card-content>
+             <div class="row">
+               <div class="col s4">
+                  <mat-toolbar color="primary" style ="color:White;text-align: center"  class="mat-elevation-z5">
+                      <p>TO_DO</p>
+                  </mat-toolbar>
+                  <div *ngFor="let task of tasksPB"> {{task.task_id}} {{task.user_story_id}}</div>
+                  Add task<mat-icon style="color:blue;" class="add-task" (click)="todoPopup()">add_circle</mat-icon>
+               </div>
+               <div class="col s4">
+                  <mat-toolbar color="primary" style = "color:White;text-align: center"  class="mat-elevation-z5">
+                      <p>INPROGRESS</p>
+                  </mat-toolbar>
+                  Add task<mat-icon style="color:blue;" class="add-task" (click)="inprogressPopup()">add_circle</mat-icon>
+               </div>
+               <div class="col s4">
+                  <mat-toolbar color="primary" style = "color:White;text-align: center"  class="mat-elevation-z5">
+                      <p>COMPLETED</p>
+                  </mat-toolbar>
+                  Add task<mat-icon style="color:blue;" class="add-task" (click)="completedPopup()">add_circle</mat-icon>
+               </div>
+             </div>
+              
+            </mat-card>
+        </div>
+</mat-card>
+
+<!-- <mat-grid-list cols="8" *ngIf="showDivision==true">
+  <mat-grid-tile [colspan]="4" [rowspan]="2">
+      <mat-card style="width:">
+        <mat-card-content>
+            Hello
+        </mat-card-content>
+        
+      </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan] = "4" [rowspan]="2">
+    <mat-card>
+      <mat-card-content>
+          Hello
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list> -->
+</body>
+</html>

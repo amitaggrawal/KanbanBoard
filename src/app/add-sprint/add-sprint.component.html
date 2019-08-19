@@ -1,0 +1,72 @@
+<!-- <form  [formGroup] = "sprintUpload" method="POST" enctype="multipart/form-data">
+  Filename : <input type ="text" formControlName= "sprintName" name="sprintName" placeholder="write your filename here"><br><br>
+ File Description <br> <textarea cols="25" rows="5" formControlName="sprintDescription" name ="fileDescription" placeholder ="wite about your file here"></textarea><br><br>
+ <input type="file" formControlName="fileUpload" name = "sprintUpload" (change) = "onChange($event)"><br><br><br>
+   <input type="submit" value ="Submit" (click)="onSubmit()">
+   <button (click)="onNoClick()">Cancel</button>
+ </form> -->
+
+<mat-dialog-content>
+  <h4>SPRINT/PRODUCT BACKLOG DETAILS</h4>
+</mat-dialog-content>
+ <form  [formGroup] = "sprintUpload" method="POST" enctype="multipart/form-data">
+  <div class="form-container">
+    <mat-form-field>
+        <input matInput formControlName= "sprintName" name="sprintName" placeholder="Enter filename here">
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput cols="5" rows="2" formControlName="sprintDescription" name ="fileDescription" placeholder ="File Description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type ="number" formControlName= "noOfDays" name="noOfDays" placeholder="Number of Days">
+    </mat-form-field><br>
+   
+        <mat-radio-group aria-label="Select an option" formControlName="type">
+            <mat-radio-button value="sprint">Sprint</mat-radio-button>&nbsp;&nbsp;&nbsp;
+            <mat-radio-button value="productBacklog">Product Backlog</mat-radio-button>
+        </mat-radio-group><br><br>
+   
+   
+        <input type="file" formControlName="fileUpload" name = "sprintUpload" (change) = "onChange($event)">
+  
+  </div><br>
+  <div mat-dialog-actions style="text-align: center">
+      <button mat-button (click)="onNoClick()" style="background-color :#aab3b0">No Thanks</button>
+      <button mat-button (click)="onSubmit() && sprintUpload.valid" cdkFocusInitial style="background-color :#0f795e">Ok</button>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- <form  [formGroup] = "sprintUpload" method="POST" enctype="multipart/form-data">
+  <div mat-dialog-content> 
+        <h5 style="background-color: aqua"><b>ADD SPRINT/PRODUCT BACKLOG</b></h5>  <br> 
+        <div style="float:left">Filename:
+            <input type ="text" formControlName= "sprintName" name="sprintName" placeholder="write your filename here"><br>
+        </div>
+        <p style="float:left">File Description:</p>
+        <textarea cols="25" rows="5" formControlName="sprintDescription" name ="fileDescription" placeholder ="wite about your file here"></textarea><br>
+        <div style="float:left">Number of days:
+            <input type ="number" formControlName= "noOfDays" name="noOfDays" placeholder="Days you will require">
+        </div>
+       <div>Type: <input type="radio" formControlName="type" name="type" value="sprint"> Sprint
+        <input type="radio" formControlName="type" name="type" value="product backlog"> Product Backlog<br></div> 
+        
+        <input type="file" formControlName="fileUpload" name = "sprintUpload" (change) = "onChange($event)"><br>
+ </div>
+  <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+  </div>
+</form> -->

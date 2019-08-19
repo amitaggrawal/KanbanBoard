@@ -1,0 +1,20 @@
+.divider{
+    background-color:#3A43C7;
+}
+
+.divider:hover{
+    background-color:#494F9A;
+}
+
+.errormsg{
+    color: red;
+}
+.list-header-title{
+    text-align: center;
+}
+.accounts{
+    font-size:400%;
+    display: flex;
+    align-items: center;
+    padding-left:42%;
+}

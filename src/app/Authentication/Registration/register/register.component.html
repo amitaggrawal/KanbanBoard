@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<body style="height:80%;background-color:#f3eaea;">
+<br>
+<br>
+<br>
+<div class="medium-list">
+  
+      <mat-card class="mat-elevation-z8">
+      <h4 style="text-align:center;">Sign Up to Kanban Board</h4>
+      <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegister()" novalidate >
+        <div class="form-container">
+          <mat-form-field>
+            <input id="username" matInput type="number" formControlName="username"  placeholder="Enter your username" required/>
+            <mat-hint>Username must be of atleast 6 characters</mat-hint>
+    
+          </mat-form-field><br>
+          
+          <mat-form-field>
+            <input id="password" matInput formControlName="password"  placeholder="Enter your password"
+            [type] ="hide ? 'text' : 'password'" autocomplete="off" />
+            <mat-icon matSuffix (click)="hide = !hide">
+              {{hide ? 'visibility_off' : 'visibility'}}
+            </mat-icon>
+            <mat-hint>Password must be of 6 characters</mat-hint>
+          </mat-form-field><br>
+         
+          <button mat-button type="submit" 
+                  class="mat-raised-button mat-primary" 
+                  [disabled]="!registerForm.valid">Register</button>
+<button mat-button routerLink="/login" class="divider">Already a member? Login</button>
+        </div>
+      </form>
+  </mat-card>
+
+  </div>
+  <div class = "errormsg" *ngIf="displayError==true">
+   {{errormessage}}
+  </div>
+</body>

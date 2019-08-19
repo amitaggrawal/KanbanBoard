@@ -1,0 +1,12 @@
+.add-task:hover{
+    font-size: 200%;
+    cursor: pointer;
+}
+a:hover{
+    color:red;
+    text-decoration: underline;
+}
+a:focus{
+    color:red;
+    text-decoration: underline;
+}

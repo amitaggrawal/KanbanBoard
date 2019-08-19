@@ -1,0 +1,45 @@
+<!-- <div class="form-page">
+<mat-card>    
+  < Title of an Card -->    
+  <!-- <mat-card-title>    
+      Create new Project by filling out details   
+  </mat-card-title>    
+  
+  <mat-card-content>    
+      <form [formGroup]="projectForm">    
+            
+                      <mat-form-field class="demo-full-width">    
+                          <input formControlName="projectName" (ngModel)="user.projectname" matInput placeholder="Project Name">    
+                      </mat-form-field>    
+                    
+                      <mat-form-field class="demo-full-width">    
+                          <textarea matInput placeholder="Project Description" formControlName="projectDescription" (ngModel)="user.projectdesc" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>    
+                      </mat-form-field>    
+                   
+    
+                
+             
+                
+                      
+                      <button (click)="createProject()" mat-raised-button color="primary" [disabled]="!projectForm.valid">Create</button>    
+            
+      </form>    
+  </mat-card-content>    
+</mat-card> 
+</div> -->
+
+<form [formGroup]="projectForm">    
+<div mat-dialog-content> 
+        <h5><b>ADD PROJECT DETAILS</b></h5>  <br> 
+        <p style="float:left">Enter Project Name</p>
+        <input formControlName="projectName" [(ngModel)]="user.projectname" matInput placeholder="Project Name">
+        <p style="float:left">Enter Project Description</p>
+        <input matInput placeholder="Project Description" formControlName="projectDescription" [(ngModel)]="user.projectdesc">
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-button (click)="createProject()" cdkFocusInitial>Ok</button>
+      </div>
+</form>
+      
+  

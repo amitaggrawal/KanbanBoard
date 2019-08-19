@@ -1,0 +1,82 @@
+.content-page{
+    text-align: center;
+}
+.content-form{
+    text-align: center;
+}
+button{
+    background-color: royalblue;
+    width: 20%;
+    height:20%;
+    display: inline-block;
+    font-weight: bolder;
+}
+.projectnames{
+    background-color:rgb(143, 174, 238);
+    float:left;
+}
+.projectnames:hover{
+    background-color: rgb(211, 218, 238);
+}
+#inside{
+    color:black;
+    background-color: #bbb4b4;
+    height:auto;
+    width:70%;
+}
+
+.projectdisplay{
+    color: #ffffff;
+    width:100%;
+   
+}
+#whole{
+    height:auto;
+    margin:20px;
+}
+
+.create-proj{
+    height:210%;
+}
+
+.add-button{
+    float:right;
+    font-size: 300%;
+    padding-right:5%;
+    margin-top:19px;
+}
+
+.add{
+    float:right;
+    font-size:20px;
+
+}
+.holder{
+    height:auto;
+}
+
+.container {
+    background: lightyellow;
+    width: 500px;
+  }
+  
+  .new {
+    background: lightblue;
+    width: 100px;
+  }
+
+  .add-button:hover{
+      font-size:350%;
+  }
+
+  .view:hover{
+    background-color: cadetblue;
+  }
+
+.add-button-1{
+    font-size:400%
+}
+
+.add-button-1:hover{
+    color: #7a7ce4;
+}

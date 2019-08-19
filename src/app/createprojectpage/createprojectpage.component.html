@@ -1,0 +1,89 @@
+<!-----<mat-card color="primary">    
+  <span>Welocme to Kanban Board!</span>  <br><br>
+  <button mat-raised-button color="primary">Create a project</button>
+</mat-card>   --> 
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--its not an angular material-->
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+      <link href="../node_modules/@angular/material/prebuilt-themes/indigo-pink.css" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<app-navbar-log></app-navbar-log>
+<!-- <div class="content-page">
+<mat-card style ="margin:1em;">
+  <mat-card-title> Welcome to Kanban board, {{username}}!</mat-card-title>
+
+  <mat-card-subtitle> It is a great platform to mange your team, backlogs, artifacts and tasks<br>so that you will be easily able to mange and distribute the tasks to team<br>members</mat-card-subtitle>
+  <button mat-raised-button color="primary" (click)="viewForms()" class="create-proj">Create a project</button>
+</mat-card>
+</div> -->
+<body style="height:80%;">
+<!-- <div class="content-form" *ngIf='loadComponent == true'>
+  <app-createproject></app-createproject>
+  </div> -->
+<div style="text-align:center;height:100%;" *ngIf="project.length==0">
+<div style="display:inline-block; padding-top:15%"><h4 style="font-weight: bold;">No project exists. Create a new project now!</h4><br>
+    <mat-icon style="cursor: pointer" matTooltip="Click to create project" (click)="loadForm()" class="add-button-1" color="primary">add_circle</mat-icon>
+  </div>
+  </div>
+
+
+
+
+  <div *ngIf="project.length>0">
+<h5 style="padding-left:23px;font-family:Arial, Helvetica, sans-serif;font-weight:bold">Your Projects:</h5>
+
+  <!-- <div *ngFor="let projects of project">
+    <a class="projectdisplay" (click)='fetchproject(projects.projectId)'>
+      <mat-card class="projectnames">
+        <mat-card-content>
+            {{projects.projectName}}
+        </mat-card-content>
+        
+      </mat-card>
+    </a>
+  </div> -->
+  <mat-card id="whole" class="mat-elevation-z5" [style.overflow]="'auto'" [style.height.px]="'325'">
+  
+  <mat-grid-list cols="3" rowHeight="2:1">
+
+  <div *ngFor="let projects of project">
+   
+  <mat-grid-tile style="padding-left:2px;">
+      <!-- <a style="text-align:center;" class="projectdisplay" (click)='fetchproject(projects.projectId)'> -->
+      <mat-card id ="inside" class="mat-elevation-z4">
+       <mat-card-content style="font-size:20px;">
+              <b>{{projects.projectName}}</b>
+      </mat-card-content> 
+      <!-- Description: {{projects.projectDescription}}<br> -->
+      <button class="view" style="float:right;" mat-button (click)='fetchproject(projects.projectId)'>View</button> 
+     
+          </mat-card>
+        <!-- </a> -->
+          </mat-grid-tile>
+  </div>
+
+</mat-grid-list> 
+</mat-card>
+<div>
+  
+    <mat-icon style="cursor: pointer" matTooltip="Click to create project" (click)="loadForm()" class="add-button" color="primary">add_circle</mat-icon>
+    <h3 class="add">Add Project</h3>
+   </div>
+</div>
+  <!-- <div *ngFor="name in project">
+    List of projects owned by {{username}}<br>
+    {{name.projectName}}
+  </div> -->
+
+</body>
+
+
+  

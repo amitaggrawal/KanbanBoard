@@ -1,0 +1,50 @@
+body{
+    height:100%;
+    
+}
+
+.img-slide{
+    width:100%;
+}
+
+
+.homepage-content{
+    padding-left:6%;
+}
+
+.homepage-content-text{
+    padding-top:10%;
+}
+
+.heading-2{
+   padding:5px;
+   margin:0;
+   font-family:"Trebuchet MS", Helvetica, sans-serif;
+}
+
+.project-title{
+    font-size: 300%;
+    padding:10px;
+    margin:0;   
+    font-family: "Comic Sans MS", cursive, sans-serif;	
+    color:#0e1b18;
+}
+
+
+.homepage-button{
+    min-width: 20%;
+    height:50px;
+    background-color:#270d9b;
+    
+}
+
+.homepage-button:hover{
+    background-color:#a196d3;
+    
+}
+
+.home-image{
+    height:400px;
+    width:400px;
+    padding-right:1%;
+}

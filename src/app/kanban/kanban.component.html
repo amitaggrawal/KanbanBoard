@@ -1,0 +1,352 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--its not an angular material-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="../node_modules/@angular/material/prebuilt-themes/indigo-pink.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<app-navbar-log></app-navbar-log>
+<body style="height:100%;" >
+
+<div *ngIf="flag">
+  <mat-card  class="mycard mat-elevation-z5" [style.overflow]="'auto'" [style.height.px]="'550'" style="overflow:scroll;background-color:#ebe4e4">
+      <button mat-button id="save" (click)="saveBoard()" class = "mat-raised-button mat-primary">Save</button><br><br>  
+    <div class="row" cdkDropListGroup>
+       <div class="col s4">
+          <mat-toolbar style = "background-color: #ad3b27;color:White;text-align: center"  class="mat-elevation-z5">
+              <p>TO_DO</p>
+          </mat-toolbar>
+            <div cdkDropList  [cdkDropListData] = "todosprints"  (cdkDropListDropped)="drop($event)" style="height:50px">
+          <div style="background-color:#ffffff;height:4000px">
+              <div *ngFor="let story of todosprints" [(cdkDragData)]="story" cdkDrag>
+              <!-- <div *ngFor="let task of story.task" > -->
+                  <mat-card class="mycard mat-elevation-z5 example-box" style="background-color: #f1f36a" >
+                      <mat-card-content>
+                        <b>
+                          {{story.user_story_id}} :: {{story.task_id}}
+                          <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                            aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                            (click)="openDialog(story.efforts_remaining,story.task_id,story.user_story_id,story.initial_effort_estimate)">
+                          </mat-icon>
+                        </b>
+                        <p style="text-align: left">
+                          <b>Description :</b> {{story.task_details}}
+                        </p>
+                       
+                        <section class="example-section">
+                          <label class="example-margin">Progress:</label>
+                          <mat-progress-bar mode="buffer" style="color:#24a564;background-color:#24a564"
+                            [value]="0"
+                            [bufferValue]="100 - story.efforts_remaining*100/story.initial_effort_estimate">
+                          </mat-progress-bar>
+                        </section>
+                      </mat-card-content>
+                    </mat-card>
+              <!-- </div> -->
+          </div>
+        </div>
+        </div>
+      </div>
+       
+
+
+       <div class="col s4">
+          <mat-toolbar color="primary" class="mat-elevation-z5">
+              <p>IN_PROGRESS</p>
+          </mat-toolbar>  
+          <div cdkDropList  [cdkDropListData] = "inprogresssprints" (cdkDropListDropped)="drop($event)" style="height:4000px;background-color:#ffffff">
+          <div *ngFor="let story of inprogresssprints" [(cdkDragData)]="story" cdkDrag>
+              <!-- <div *ngFor="let task of story.task" > -->
+                  <mat-card class="mycard mat-elevation-z5 example-box" style="background-color: #f1f36a" >
+                      <mat-card-content>
+                        <b>
+                          {{story.user_story_id}} :: {{story.task_id}}
+                          <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                            aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                            (click)="openDialog(story.efforts_remaining,story.task_id,story.user_story_id,story.initial_effort_estimate)">
+                          </mat-icon>
+                        </b>
+                        <p style="text-align: left">
+                          <b>Description :</b> {{story.task_details}}
+                        </p>
+                        <p style="text-align: left">
+                            <b>Last Modified :</b> {{story.modifiedAt}}
+                        </p>
+                        <section class="example-section">
+                          <label class="example-margin">Progress:</label>
+                          <mat-progress-bar mode="buffer"
+                            [value]="100 - story.efforts_remaining*100/story.initial_effort_estimate"
+                            [bufferValue]="100 - story.efforts_remaining*100/story.initial_effort_estimate">
+                          </mat-progress-bar>
+                        </section>
+                      </mat-card-content>
+                    </mat-card>
+              <!-- </div> -->
+          </div>
+        </div>
+       </div>
+
+
+
+       <div class="col s4">
+          <mat-toolbar style = "background-color: #3dad27;color:white;" class="mat-elevation-z5">
+              <p>COMPLETED</p>
+          </mat-toolbar>
+          <div cdkDropList [cdkDropListData] = "completedsprints"(cdkDropListDropped)="drop($event)" style="height:4000px;background-color:#ffffff" >
+          <div *ngFor="let story of completedsprints" [(cdkDragData)]="story" cdkDrag>
+              <!-- <div *ngFor="let task of story.task" > -->
+                  <mat-card class="mycard mat-elevation-z5 example-box" style="background-color: #f1f36a" >
+                      <mat-card-content>
+                        <b>
+                          {{story.user_story_id}} :: {{story.task_id}}
+                          <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                            aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                            (click)="openDialog(story.efforts_remaining,story.task_id,story.user_story_id,story.initial_effort_estimate)">
+                          </mat-icon>
+                        </b>
+                        <p style="text-align: left">
+                          <b>Description :</b> {{story.task_details}}
+                        </p>
+                        <p style="text-align: left">
+                            <b>Last Modified :</b> {{story.modifiedAt}}
+                        </p>
+                        <section class="example-section">
+                          <label class="example-margin">Progress:</label>
+                          <mat-progress-bar mode="buffer"
+                            [value]="100"
+                            [bufferValue]="100"
+                            >
+                          </mat-progress-bar>
+                        </section>
+                      </mat-card-content>
+                    </mat-card>
+              <!-- </div> -->
+          </div>
+          </div>
+        </div>
+       
+     </div>
+  </mat-card>
+</div>
+
+<div *ngIf="!flag">
+      <mat-spinner></mat-spinner>
+</div>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+        <!-- <div class="col s4">
+          
+              <mat-toolbar color="primary" class="mat-elevation-z5">
+                  <p>TO_DO</p>
+              </mat-toolbar>
+              <div *ngFor="let story of todosprints">
+                  <div *ngFor="let task of story.task">
+                      <div cdkDropList [cdkDropListData] = "todosprints" #firstList = "cdkDropList"  [cdkDropListConnectedTo]="[secondList, thirdList]"     (cdkDropListDropped)="drop($event)">
+                      <mat-card class="mycard mat-elevation-z5 example-box" [(cdkDragData)]="task" cdkDrag>
+                          <mat-card-content>
+                            <b>
+                              {{story.user_story_id}} :: {{task.task_id}}
+                              <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                                aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                                (click)="openDialog(task.efforts_remaining,task.task_id,story.user_story_id)">
+                              </mat-icon>
+                            </b>
+                            <p style="text-align: left">
+                              <b>Description :</b> {{task.task_details}}
+                            </p>
+                            <section class="example-section">
+                              <label class="example-margin">Progress:</label>
+                              <mat-progress-bar mode="buffer"
+                                [value]="100 - task.efforts_remaining*100/task.initial_effort_estimate"
+                                [bufferValue]="100 - task.efforts_remaining*100/task.initial_effort_estimate">
+                              </mat-progress-bar>
+                            </section>
+                          </mat-card-content>
+                        </mat-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col s4">
+                  <div cdkDropList [cdkDropListData]="inprogresssprints"  [cdkDropListConnectedTo]="[firstList,thirdList]"     #secondList = "cdkDropList" (cdkDropListDropped)="drop($event)" style="width:30%">
+                      <mat-toolbar color="primary" class="mat-elevation-z5">
+                          <p>IN_PROGRESS</p>
+                      </mat-toolbar>
+                      <div *ngFor="let story of inprogresssprints">
+                          <div *ngFor="let task of story.task">
+                              <mat-card class="mycard mat-elevation-z5 example-box" [(cdkDragData)]="task" cdkDrag>
+                                  <mat-card-content>
+                                    <b>
+                                      {{story.user_story_id}} :: {{task.task_id}}
+                                      <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                                        aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                                        (click)="openDialog(task.efforts_remaining,task.task_id,story.user_story_id)">
+                                      </mat-icon>
+                                    </b>
+                                    <p style="text-align: left">
+                                      <b>Description :</b> {{task.task_details}}
+                                    </p>
+                                    <section class="example-section">
+                                      <label class="example-margin">Progress:</label>
+                                      <mat-progress-bar mode="buffer"
+                                        [value]="100 - task.efforts_remaining*100/task.initial_effort_estimate"
+                                        [bufferValue]="100 - task.efforts_remaining*100/task.initial_effort_estimate">
+                                      </mat-progress-bar>
+                                    </section>
+                                  </mat-card-content>
+                                </mat-card>
+                          </div>
+                      </div>
+                  </div>
+                
+                
+                
+                  <div>
+                      <div cdkDropList [cdkDropListData]="completedsprints"  [cdkDropListConnectedTo]="[firstList,secondList]"     #thirdList = "cdkDropList" (cdkDropListDropped)="drop($event)" style="width:70%">
+                          <mat-toolbar color="primary" class="mat-elevation-z5">
+                              <p>COMPLETED</p>
+                          </mat-toolbar>
+                          <div *ngFor="let story of completedsprints">
+                              <div *ngFor="let task of story.task">
+                                  <mat-card class="mycard mat-elevation-z5 example-box" [(cdkDragData)]="task" cdkDrag>
+                                      <mat-card-content>
+                                        <b>
+                                          {{story.user_story_id}} :: {{task.task_id}}
+                                          <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                                            aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                                            (click)="openDialog(task.efforts_remaining,task.task_id,story.user_story_id)">
+                                          </mat-icon>
+                                        </b>
+                                        <p style="text-align: left">
+                                          <b>Description :</b> {{task.task_details}}
+                                        </p>
+                                        <section class="example-section">
+                                          <label class="example-margin">Progress:</label>
+                                          <mat-progress-bar mode="buffer"
+                                            [value]="100 - task.efforts_remaining*100/task.initial_effort_estimate"
+                                            [bufferValue]="100 - task.efforts_remaining*100/task.initial_effort_estimate">
+                                          </mat-progress-bar>
+                                        </section>
+                                      </mat-card-content>
+                                    </mat-card>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                
+
+        </div> -->
+      <!-- <div class="col s4">
+        <mat-toolbar color="primary" class="mat-elevation-z5">
+          <p>TO_DO</p>
+        </mat-toolbar>
+      
+        <div *ngFor="let story of todosprints">
+          <div *ngFor="let task of story.task">
+              <div cdkDropList [cdkDropListData]="task" class="example-list" (cdkDropListDropped)="drop($event)">
+              <mat-card class="mycard mat-elevation-z5 example-box" [(cdkDragData)]="task" cdkDrag>
+                <mat-card-content>
+                  <b>
+                    {{story.user_story_id}} :: {{task.task_id}}
+                    <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                      aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                      (click)="openDialog(task.efforts_remaining,task.task_id,story.user_story_id)">
+                    </mat-icon>
+                  </b>
+                  <p style="text-align: left">
+                    <b>Description :</b> {{task.task_details}}
+                  </p>
+                  <section class="example-section">
+                    <label class="example-margin">Progress:</label>
+                    <mat-progress-bar mode="buffer"
+                      [value]="100 - task.efforts_remaining*100/task.initial_effort_estimate"
+                      [bufferValue]="100 - task.efforts_remaining*100/task.initial_effort_estimate">
+                    </mat-progress-bar>
+                  </section>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s4">
+          <div cdkDropList [cdkDropListData]="inprogresssprints" class="example-list"
+              (cdkDropListDropped)="drop($event)">
+        <mat-toolbar color="primary" class="mat-elevation-z5">
+          <p>IN_PROGRESS</p>
+        </mat-toolbar>
+        <div *ngFor="let story of inprogresssprints">
+          <div *ngFor="let task of story.task">
+              <mat-card class="mycard mat-elevation-z5 example-box" [(cdkDragData)]="task" cdkDrag>
+                <mat-card-content>
+                  <b>
+                    {{story.user_story_id}} :: {{task.task_id}}
+                    <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                      aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                      (click)="openDialog(task.efforts_remaining,task.task_id,story.user_story_id)">
+                    </mat-icon>
+                  </b>
+                  <p style="text-align: left">
+                    <b>Description :</b> {{task.task_details}}
+                  </p>
+                  <section class="example-section">
+                    <label class="example-margin">Progress:</label>
+                    <mat-progress-bar mode="buffer"
+                      [value]="100 - task.efforts_remaining*100/task.initial_effort_estimate"
+                      [bufferValue]="100 - task.efforts_remaining*100/task.initial_effort_estimate">
+                    </mat-progress-bar>
+                  </section>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s4">
+        <mat-toolbar color="primary" class="mat-elevation-z5">
+          <p>COMPLETED</p>
+        </mat-toolbar>
+        <div cdkDropList [cdkDropListData]="completedsprints" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let story of completedsprints">
+          <div *ngFor="let task of story.task">
+          
+              <mat-card class="mycard mat-elevation-z5 example-box" [(cdkDragData)]="task" cdkDrag>
+                <mat-card-content>
+                  <b>
+                    {{story.user_story_id}} :: {{task.task_id}}
+                    <mat-icon svgIcon="thumbs-up" aria-hidden="false" class="right"
+                      aria-label="Example thumbs up SVG icon" style="cursor: pointer" matTooltip="Click to Log Effort"
+                      (click)="openDialog(task.efforts_remaining,task.task_id,story.user_story_id)">
+                    </mat-icon>
+                  </b>
+                  <p style="text-align: left">
+                    <b>Description :</b> {{task.task_details}}
+                  </p>
+                  <section class="example-section">
+                    <label class="example-margin">Progress:</label>
+                    <mat-progress-bar mode="buffer"
+                      [value]="100 - task.efforts_remaining*100/task.initial_effort_estimate"
+                      [bufferValue]="100 - task.efforts_remaining*100/task.initial_effort_estimate">
+                    </mat-progress-bar>
+                  </section>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>  -->

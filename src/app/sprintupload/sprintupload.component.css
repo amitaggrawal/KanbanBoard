@@ -1,0 +1,57 @@
+.add{
+    background-color:#494cdd;
+}
+.add:hover{
+    background-color: #b8bdd4;
+}
+.view{
+    cursor:default;
+    font-size:120%;
+    color:#ec4747;
+}
+.view:hover{
+    color:#7e0707;
+}
+
+.mysprint{
+    cursor: pointer;
+}
+
+.mysprint:hover{
+    color: #503bc5;
+}
+
+.add-member-button{
+    float:right;
+    font-size:150%;
+    margin-top:-38px;
+}
+#add-spr{
+    font-size:170%;
+}
+#add-spr:hover{
+    color: #503bc5;
+}
+li{
+    font-size:125%;
+}
+
+.add-memb{
+    font-size:250%;
+    float:right;
+    position:relative;
+    margin-top:-30px;
+}
+.add-memb:hover{
+    color:#6b92da;
+}
+.show:hover{
+    color:#d0ced8;
+}
+
+.add-backlog{
+    float:right;
+    font-size:250%;
+    position: relative;
+    margin-top:-30px;
+}

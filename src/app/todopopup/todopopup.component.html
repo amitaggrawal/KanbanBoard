@@ -1,0 +1,23 @@
+<div mat-dialog-content>
+  Add TODO Task
+</div>
+<form  [formGroup] = "addTodoTask" method="POST" enctype="multipart/form-data">
+  <div class="form-container">
+    <mat-form-field>
+      <input matInput formControlName="taskID" name="taskID" placeholder="Enter task ID">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="taskDetails" name="taskDetails" placeholder="Enter task Details">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="volunteer" name="volunteer" placeholder="Enter Volunteer for this task">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="effortEstimate" name="effortEstimate"placeholder="Enter estimated effort for this task">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions style="text-align: center">
+      <button mat-button (click)="onNoClick()" style="background-color :#aab3b0">No Thanks</button>
+      <button mat-button  cdkFocusInitial style="background-color :#0f795e" (click) = "addTodo()">Ok</button>
+</div>
+</form>

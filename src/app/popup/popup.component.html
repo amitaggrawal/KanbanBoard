@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  <p>Task ID : {{data.task_id}}</p>
+  <p>Userstory ID : {{data.user_story_id}}</p>
+  <p>Total Effort Value</p>
+  <input [(ngModel)]="data.initialEffort" placeholder="data.initialEffort" readonly>
+  <p>Please enter the Remaining Effort Value</p>
+  <input [(ngModel)]="data.remainingEffort"  placeholder="data.initialEffort">
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial [disabled]="formisvalid">Ok</button>
+</div>

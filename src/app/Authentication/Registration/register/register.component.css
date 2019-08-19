@@ -1,0 +1,16 @@
+.divider{
+    background-color:#3A43C7;
+}
+
+.divider:hover{
+    background-color:#494F9A;
+}
+.mat-elevation-z8{
+    background-color:#eeecec;
+    width:70%;
+    height:100%;margin:auto;
+}
+
+.errormsg{
+    color: red;
+}

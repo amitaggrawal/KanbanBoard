@@ -1,0 +1,141 @@
+
+<app-navbar-pro></app-navbar-pro>
+<body style="height:80%;">
+<br>
+
+<div style="height:80%;padding:1%;">
+  <mat-card class="mat-elevation-z5" [style.overflow]="'auto'" [style.height]="'20%'">
+   <div style="text-align:center">
+    <mat-card-content>
+   <h1 style="line-height:13px">Welcome to {{projectname}}</h1>
+      <h3 style="line-height:13px">{{description}}</h3>
+     <h3 style="line-height:13px;color:#681d1d">Created By : {{ownername}}</h3>
+    </mat-card-content>
+    <div style="padding-left:84%;margin-top: -30px">Add members</div> <mat-icon style="cursor: pointer" matTooltip="Coming soon!" class="add-memb" color="primary">add_circle</mat-icon>
+  </div>
+  </mat-card><br>
+
+  <mat-card class="mat-elevation-z5" [style.overflow]="'auto'" [style.height]="'30%'">
+    <mat-card-content>
+      <h2>ARTIFACTS</h2>
+      <div style="text-align:center;font-size:110%" *ngIf="len1==0"> No Artifact file uploaded yet.</div>
+      <div  *ngFor="let artifact of artifactname|slice:0:show1 let j=index">
+          <li><a matTooltip="Download" class="mysprint" (click)="downloadArtifacts(artifact.fileID)">{{artifact.displayName}}</a></li>
+          <a class="show" style="color:blue;text-decoration:underline;cursor: pointer;" *ngIf="j==1 && show1 == 2 && artifactname.length > 2" (click)="show1 = artifactname.length">Show More</a>
+          <a class="show" style="color:blue;text-decoration:underline;cursor: pointer;" *ngIf="j==artifactname.length-1 && artifactname.length > 2" (click)="show1=2">Show Less</a>
+        </div> 
+    </mat-card-content>
+    <div style="padding-left:92%;margin-top: 40px">Upload</div> <mat-icon (click)="addArtifact()" style="cursor: pointer" matTooltip="Click to upload new artifacts" class="add-memb" color="primary">add_circle</mat-icon>
+  </mat-card>
+
+  <mat-grid-list cols="8" rowHeight="7:4" >
+    <mat-grid-tile [colspan]="4" [rowspan]="2">
+      <mat-card class="mat-elevation-z5" style="width:93%;" [style.overflow]="'auto'" [style.height]="'70%'">
+        <mat-card-content>
+            <h2>SPRINTS</h2>
+            <div style="font-size:110%" *ngIf="len==0"> No Sprint file uploaded yet.</div>
+            <div  *ngFor="let sprint of sprintname|slice:0:show let i=index">
+              <li><a (click)="extractSprint(sprint.sprintID)" class="mysprint">{{sprint.sprintName}}</a></li>
+              <a class="show" style="color:blue;text-decoration:underline;cursor: pointer;" *ngIf="i==1 && show == 2 && sprintname.length > 2" (click)="show = sprintname.length">Show More</a>
+              <a class="show" style="color:blue;text-decoration:underline;cursor: pointer;" *ngIf="i==sprintname.length-1 && sprintname.length > 2" (click)="show=2">Show Less</a>
+             </div>
+          </mat-card-content>
+         
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile  [colspan]="4" [rowspan]="2">
+          <mat-card class="mat-elevation-z5" style="width:95%;" [style.overflow]="'auto'" [style.height]="'70%'">
+            
+            <mat-card-content>
+            <h2>PRODUCT BACKLOG</h2>
+            <div style="font-size:110%" *ngIf="len2==0"> No Backlog file uploaded yet.</div>
+            <div  *ngFor="let product of productBacklog|slice:0:show2 let i=index">
+                <li>
+                  <a (click)="extractProduct(product.productBacklogID)" class="mysprint">{{product.productBacklogName}}</a></li>
+                  <a class="show" style="color:blue;text-decoration:underline;cursor: pointer;" *ngIf="i==1 && show2 == 2 && productBacklog.length > 2" (click)="show2 = productBacklog.length">Show More</a>
+                  <a class="show" style="color:blue;text-decoration:underline;cursor: pointer;" *ngIf="i==productBacklog.length-1 && productBacklog.length > 2" (click)="show2=2">Show Less</a>
+              </div>
+          </mat-card-content>
+          <div style="padding-left:85%;margin-top:55px;position: relative;">Upload</div> <mat-icon (click)="addSprint()" style="cursor: pointer" matTooltip="Click to upload sprint/backlog file" class="add-backlog" color="primary">add_circle</mat-icon>
+          
+          </mat-card>
+      </mat-grid-tile>
+  </mat-grid-list>
+
+<!-- <mat-grid-list cols="3" rowHeight="2:1">
+  <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <mat-card class="mat-elevation-z8" style="width:95%;height:90%;">
+          <div style="text-align:center;padding:9%">
+            <mat-card-content>
+               <div style="text-transform:uppercase;font-size:250%;font-weight:bold;"> WELCOME TO {{projectname}}</div><br>
+              {{description}}<br><br>
+               <div style="color:#330303">Created By : {{ownername}}</div><br><br>
+               <button class="add" mat-button (click)="addArtifact()">ADD ARTIFACT</button>&nbsp;&nbsp;
+               <button class="add" mat-button (click)="addSprint()">ADD SPRINT</button>
+            </mat-card-content>   
+          </div>
+         <div style="float:left;padding-left: 78%;padding-bottom:1%">Add member:</div>
+         <mat-icon style="cursor: pointer" matTooltip="Add members"  class="add-member-button" color="primary">add_circle</mat-icon>
+      </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="2">
+    <mat-card class="mat-elevation-z8" style="width:85%;" [style.overflow]="'auto'" [style.height.px]="'328'">
+      <div style="text-align:center">
+          <a (click)="showArtifact()" class="view">View Artifacts</a> | 
+          <a (click)="showSprint()" class="view">View Sprints</a>
+      </div> 
+      <div style="text-align:center;padding:25%;font-size:110%" *ngIf="showEmpty==true">
+        Click above to view documents<br> related  to these projects
+      </div>
+      
+      <div  *ngIf="showArt==true">
+        <div style="text-align:center;padding:25%;font-size:110%" *ngIf="len1==0"> No Artifact file uploaded yet!</div>
+        <div  *ngFor="let artifact of artifactname">
+          <br>
+          <li><a class="mysprint" (click)="downloadArtifacts(artifact.fileID)">{{artifact.displayName}}</a></li>
+        </div>
+      </div>
+      
+      <div *ngIf="showSp==true">
+        <div style="text-align:center;padding:25%;font-size:110%" *ngIf="len==0"> No Sprint file uploaded yet!</div>
+        <div  *ngFor="let sprint of sprintname">
+          <br>
+          <li><a (click)="extractSprint(sprint.sprintID)" class="mysprint">{{sprint.sprintName}}</a></li>
+        </div>
+         
+      </div>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list> -->
+</div>
+
+
+<!-- <button (click) = "sprintdisplay()">Click here to Upload Sprint</button>
+<br>
+<br>
+<div *ngIf='load==true'>
+
+</div>
+
+
+<button (click)="artifactdisplay()">Upload Artifact</button>
+
+<div *ngIf='loadartifact==true'>
+  <br>
+  <br>
+<form [formGroup] = "artifactUpload" (ngSubmit)="onUpload()" method="POST" enctype = "multipart/form-data">
+  Upload your file here : <input type="file" formControlName="artifactUpload" (change) = "onChanges($event)"><br><br>
+<input type ="submit" value = "Submit">
+<hr>
+</form>
+</div>
+
+<br>
+
+<h3>Download Artifacts from here:</h3> <button (click)="downloadArtifacts()">Download</button><br>
+
+<h3>Extract Sprint</h3><button (click)="extractSprint()">Extract</button>
+<br>
+<br> -->
+</body>

@@ -1,0 +1,95 @@
+<html>
+  <head>
+      
+  </head>
+<body>
+<div class="division" id="div1">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Add Team
+            </mat-panel-title>
+            <mat-panel-description>
+             &nbsp;&nbsp;&nbsp; Type team member name here
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+      <div class="formm">
+          <mat-form-field>
+            <input matInput placeholder="Type team member name">
+          </mat-form-field>
+      
+           &nbsp;&nbsp;&nbsp; <button mat-button class="mat-raised-button mat-primary">Add</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+</div>
+<div class="division" id="div2">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Add Artifacts
+            </mat-panel-title>
+            <mat-panel-description>
+              Upload your artifacts here
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+      <div class="formm">
+          <mat-form-field>
+            <input matInput placeholder="Filename" readonly>
+          </mat-form-field>
+      
+           &nbsp;&nbsp;&nbsp; <button mat-button class="mat-raised-button mat-primary"> Upload</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>  
+</div>
+<div class="division" id="div3">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sprint Files
+            </mat-panel-title>
+            <mat-panel-description>
+                &nbsp;&nbsp;&nbsp;Upload your sprint files here
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+      <div class="formm">
+          <mat-form-field>
+            <input matInput placeholder="Sprint file name" readonly>
+          </mat-form-field>
+      
+           &nbsp;&nbsp;&nbsp; <button mat-button class="mat-raised-button mat-primary">Upload</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion><br><br>
+
+</div>
+<div>
+    <button (click)="viewTeam()" class="download" mat-raised-button>Click here to View Team members</button>
+    <button (click)="viewArtifacts()" class="download" mat-raised-button>Click here to View and Download Artifacts</button>
+    <button (click)="viewSprint()" class="download" mat-raised-button>Click here toView and Download Sprints</button>
+</div>
+<br><br>
+<div class="view"*ngIf="loadMember==true">
+Team members
+</div>
+
+<div class="view" *ngIf="loadArtifacts==true">
+Artifacts
+</div>
+
+<div class="view" *ngIf="loadSprints==true">
+Sprints
+</div>
+
+</body>
+
+
+</html>
+
+
+
+

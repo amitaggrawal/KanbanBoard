@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="navigation" *ngIf="nav.visible">
+
+    <mat-toolbar-row>
+    
+    <span class="title-content">{{projectname}}</span>
+    
+    <span class="spacer"></span>
+      <li class="name">User : {{username}}</li>
+      <li>
+          <button mat-button [matMenuTriggerFor]="menu"><mat-icon style="font-size:50px;margin-top:-25px;">account_circle</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()">Logout</button>
+          </mat-menu>
+      </li>
+    
+    
+  </mat-toolbar-row>
+  </mat-toolbar>
+

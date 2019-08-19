@@ -1,0 +1,19 @@
+
+  <!-- Upload your file here : <br><br>
+<input type ="submit" value = "Submit" (click)="onUpload()">
+<button (click)="onNoClick()">Cancel</button>
+<hr>
+</form> -->
+
+<form [formGroup] = "artifactUpload"  method="POST" enctype = "multipart/form-data">
+  <div mat-dialog-content> 
+        <h4><b>ADD ARTIFACT</b></h4>  
+        Upload your file here:<br><br>
+        <input type="file" formControlName="artifactUpload" (change) = "onChanges($event)">
+  </div><br>
+  <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()" style="background-color :#aab3b0">No Thanks</button>
+        <button mat-button (click)="onUpload()" style="background-color :#0f795e" cdkFocusInitial>Ok</button>
+  </div>
+</form>
+      
