@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Task, Sprint } from '../services/tasks'
 import { KanbanComponent } from '../kanban/kanban.component';
 import { Subject } from 'rxjs';
+import { SprintuploadService } from './sprintupload.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
-  sprintData = localStorage.getItem('response');
-  constructor() {
+  sprintData;
+  
+  constructor(private sprintUpload: SprintuploadService) {
+    console.log('this is service constructor');
     this.getTasksFromServer();
   }
 
@@ -27,7 +30,17 @@ export class TasksService {
 
 
   getTasksFromServer() {
+    this.sprintData = localStorage.getItem('response');
     this.stories = new Sprint(JSON.parse(this.sprintData)).stories
+
+    this.sprintUpload.newSprintDataAvailable.subscribe(() => {
+      this.sprintData = localStorage.getItem('response');
+      this.stories = new Sprint(JSON.parse(this.sprintData)).stories
+    })
+
+    //console.log(JSON.parse(this.sprintData));
+    
+   
   }
   getToDoTasks(): Task[] {
 

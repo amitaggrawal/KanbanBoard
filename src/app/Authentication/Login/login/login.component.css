@@ -8,6 +8,8 @@
 
 .errormsg{
     color: red;
+    padding: 1%;
+    margin-top: -20px;
 }
 .list-header-title{
     text-align: center;

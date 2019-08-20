@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit {
 
   onNoClick(){
     this.dialogRef.close();
-    // window.location.reload();
+    window.location.reload();
   }
 
 }

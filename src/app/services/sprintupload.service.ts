@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getSupportedInputTypes } from '@angular/cdk/platform';
+import { Sprint } from './tasks';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -15,7 +18,9 @@ export class SprintuploadService {
   baseUrl5 = 'http://192.168.43.91:7000/sprint/api/getProductBacklogById'
   baseUrl6 = 'http://192.168.43.91:7000/update-sprint/api/updateSprintById'
 
-  constructor(private httpclient: HttpClient) { }
+  constructor(private httpclient: HttpClient, private router:Router) { }
+
+  private sprintData: Sprint;
 
   uploadSprintfile(data) {
     const httpOptions = {
@@ -47,14 +52,28 @@ export class SprintuploadService {
     })
   }
 
+  newSprintDataAvailable = new Subject();
+
   getSprint(data) {
-    const httpOption = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json'
-      })
-    };
-    return this.httpclient.post(this.baseUrl4, data);
+    // const httpOption = {
+    //   headers: new HttpHeaders({
+    //     'Content-type': 'application/json'
+    //   })
+    // };
+
+    this.httpclient.post(this.baseUrl4, data).subscribe(res => {
+      if (res != null && res != undefined) {
+        this.sprintData = res.sprint;
+        if (this.sprintData != null)
+          localStorage.setItem('response', JSON.stringify(this.sprintData));
+          this.router.navigate(['/kanban']);
+          console.log('got new response emitting');
+          this.newSprintDataAvailable.next();
+      }
+    });
   }
+
+
 
   fetchProjectByID(data) {
     const httpOption = {
@@ -65,17 +84,17 @@ export class SprintuploadService {
     return this.httpclient.post(this.baseUrl3, data)
   }
 
-  getBacklog(data){
+  getBacklog(data) {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-type' : 'application/json'
+        'Content-type': 'application/json'
       })
     };
-    return this.httpclient.post(this.baseUrl5,data)
+    return this.httpclient.post(this.baseUrl5, data)
   }
 
-  updateSprint(data){
-    return this.httpclient.post(this.baseUrl6,data)
+  updateSprint(data) {
+    return this.httpclient.post(this.baseUrl6, data)
   }
 }
 

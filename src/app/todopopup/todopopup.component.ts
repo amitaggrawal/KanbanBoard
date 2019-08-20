@@ -5,6 +5,7 @@ import { Todo } from './todo.module';
 import { Task } from '../services/tasks';
 import { DialogData } from '../kanban/kanban.component';
 import { TasksService } from '../services/tasks.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todopopup',
@@ -17,7 +18,8 @@ export class TodopopupComponent implements OnInit {
   todotasklist: Task[] = [];
   todo: Task;
 
-  constructor(public dialogRef: MatDialogRef<TodopopupComponent>, private formbuilder: FormBuilder, private _taskService: TasksService) {
+  constructor(public dialogRef: MatDialogRef<TodopopupComponent>, private formbuilder: FormBuilder,
+     private _taskService: TasksService, private router : Router) {
 
   }
 
@@ -55,6 +57,7 @@ export class TodopopupComponent implements OnInit {
     console.log(formData);
     this._taskService.addToDo(formData);
     this._taskService.getTodo();
+    this.dialogRef.close();
 
   }
 

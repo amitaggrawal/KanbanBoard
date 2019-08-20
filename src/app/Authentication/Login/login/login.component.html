@@ -24,14 +24,15 @@
               {{hide ? 'visibility_off' : 'visibility'}}
           </mat-icon>
           <mat-error *ngIf="pass.invalid">{{getPassErrorMessage()}}</mat-error>
-      </mat-form-field><br>
+      </mat-form-field>
+      <div class = "errormsg" *ngIf="displayError==true">
+          Invalid username and password!
+        </div>
         <button mat-button type="submit"  class="mat-raised-button mat-primary" [disabled]="!loginForm.valid">Login</button><button mat-button routerLink="/register" class="divider">Not a member? Sign up</button>
       </div>
     </form>
   </div>
 </mat-card>
-<div class = "errormsg" *ngIf="displayError==true">
-  Invalid username and password!
-</div>
+
 </div>
 </body>

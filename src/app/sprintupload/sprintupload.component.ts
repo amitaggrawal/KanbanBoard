@@ -114,18 +114,19 @@ export class SprintuploadComponent implements OnInit {
 
   extractSprint(sprintId) {
     localStorage.setItem('currentSprint',sprintId);
-    console.log(sprintId)
-    this.sprint.getSprint({ sprintId }).subscribe((res) => {
-      console.log(res.sprint);
-      localStorage.setItem('response', JSON.stringify(res.sprint));
-      let sprint = new Sprint(res.sprint);
-      console.log(sprint);
-      console.log(res);
-      if(res['status']){
-        this.router.navigate(['/kanban']);
+    console.log(sprintId);
+    this.sprint.getSprint({ sprintId });
+    // this.sprint.getSprint({ sprintId }).subscribe((res) => {
+    //   console.log(res.sprint);
+    //   localStorage.setItem('response', JSON.stringify(res.sprint));
+    //   let sprint = new Sprint(res.sprint);
+    //   console.log(sprint);
+    //   console.log(res);
+    //   if(res['status']){
+    //     this.router.navigate(['/kanban']);
        
-      }
-    });
+    //   }
+    // });
   }
 
   extractProduct(productbacklogid){
@@ -138,7 +139,7 @@ export class SprintuploadComponent implements OnInit {
         localStorage.setItem('responsebacklog',JSON.stringify(res.productbacklog));
 
         let backlog = new ProductBacklog(JSON.parse(localStorage.getItem('responsebacklog')));
-        console.log(backlog.noOfDays);
+        localStorage.setItem('backlogname',backlog.pbName);
         if(res['status']){
           this.router.navigate(['/backlog']);
         }

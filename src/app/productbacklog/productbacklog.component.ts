@@ -23,6 +23,8 @@ export class ProductbacklogComponent implements OnInit {
   storyFeature: string;
   story_number: string;
   description: string;
+  backlogname  = localStorage.getItem('backlogname');
+  show = false;
 
   tasksPB = [];
 
@@ -58,9 +60,14 @@ export class ProductbacklogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.tasksPB = this._taskService.getTodo();
+      this.show = true;
     })
 
     
+  }
+
+  save(){
+    this.show=false;
   }
 
 }
