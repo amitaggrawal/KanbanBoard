@@ -61,9 +61,7 @@ export class ProductbacklogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.tasksPB = this._taskService.getTodo();
       this.show = true;
-    })
-
-    
+    })    
   }
 
   save(){
