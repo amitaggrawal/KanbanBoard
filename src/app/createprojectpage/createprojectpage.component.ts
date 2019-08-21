@@ -6,6 +6,7 @@ import{ NavbarService } from '../services/navbar.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {CreateprojectComponent} from '../createproject/createproject.component';
 import { LoginService } from '../services/login.service';
+import { User } from '../Authentication/user.model';
 
 
 @Component({
@@ -14,9 +15,11 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./createprojectpage.component.css']
 })
 export class CreateprojectpageComponent implements OnInit {
+  user: User = JSON.parse(localStorage.getItem('user'));
+
   username: String = localStorage.getItem('userName');
   private ownername;
-  private project = JSON.parse(localStorage.getItem('projects'));
+  private project =  this.user.projects;//JSON.parse(localStorage.getItem('projects'));
 
   constructor(private router: Router, private uploadService : SprintuploadService, public nav : NavbarService,
     private dialog: MatDialog, private logService : LoginService ) {
@@ -24,7 +27,7 @@ export class CreateprojectpageComponent implements OnInit {
   }
   ngOnInit() {
 
-    if(localStorage.getItem('userName')==null){
+    if(localStorage.getItem('user')==null){
       this.router.navigate(['/'])
     }else{
 

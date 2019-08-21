@@ -7,7 +7,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { NavbarService } from '../services/navbar.service';
-import { element } from 'Amit Innovation Review Application/frontend/InnovationReviewApplication/node_modules/protractor/built';
 import { SprintuploadService } from '../services/sprintupload.service';
 import { Router } from '@angular/router';
 import { BoardComponent } from '../board/board.component';

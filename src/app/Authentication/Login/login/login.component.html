@@ -1,38 +1,44 @@
-<app-navbar></app-navbar>
 <body style="height:80%;background-color:#f3eaea;">
-<br>
-<br>
-<br>
-<br>
-<div class="medium-list">
-<mat-card class="mat-elevation-z8" style="background-color:#eeecec;width:70%;height:100%;margin:auto;">
-  <div>
-    <div><mat-icon class="accounts">account_circle</mat-icon></div>
-    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && logUser()" novalidate>
-      <div class="form-container">
-        <mat-form-field>
-          <input id="username" matInput type="number" formControlName="username"  placeholder="Enter your Employee"/>
-          <mat-error *ngIf="userid.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input id="password"
-                 matInput
-                 formControlName="password"
-                 placeholder="Enter your password"
-                 [type]="hide ? 'text':'password'" />
-          <mat-icon matSuffix (click)="hide = !hide">
-              {{hide ? 'visibility_off' : 'visibility'}}
-          </mat-icon>
-          <mat-error *ngIf="pass.invalid">{{getPassErrorMessage()}}</mat-error>
-      </mat-form-field>
-      <div class = "errormsg" *ngIf="displayError==true">
-          Invalid username and password!
-        </div>
-        <button mat-button type="submit"  class="mat-raised-button mat-primary" [disabled]="!loginForm.valid">Login</button><button mat-button routerLink="/register" class="divider">Not a member? Sign up</button>
-      </div>
-    </form>
-  </div>
-</mat-card>
+  <br />
+  <br />
 
-</div>
+  <div class="medium-list">
+    <mat-card class="mat-elevation-z8" style="background-color:#eeecec;width:70%;height:100%;margin:auto;">
+      <div>
+        <br />
+        <br />
+        <div>
+          <mat-icon class="accounts">account_circle</mat-icon>
+        </div>
+        <br />
+        <br />
+        <form [formGroup]="loginForm" (ngSubmit)="logUser()" novalidate>
+          <div class="form-container">
+            <mat-form-field>
+              <input id="username" matInput type="number" formControlName="username"
+                placeholder="Enter your Employee" />
+              <mat-error *ngIf="displayError ">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input id="password" matInput formControlName="password" placeholder="Enter your password"
+                [type]="hide ? 'text':'password'" />
+              <mat-icon matSuffix (click)="hide = !hide">
+                {{hide ? 'visibility_off' : 'visibility'}}
+              </mat-icon>
+              <mat-error *ngIf="pass.invalid">{{getPassErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <div class="errormsg" *ngIf="displayError==true">
+              {{error_msg}}
+            </div>
+            <br/>
+            <button mat-button type="submit" class="mat-raised-button mat-primary"
+              [disabled]="!loginForm.valid">Login</button><button mat-button routerLink="/register" class="divider">Not
+              a member? Sign up</button>
+          </div>
+        </form>
+        <br/><br/>
+      </div>
+    </mat-card>
+
+  </div>
 </body>

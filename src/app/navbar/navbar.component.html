@@ -1,14 +1,22 @@
-
-<mat-toolbar color="primary" class="navigation" *ngIf="nav.visible">
+<mat-toolbar color="primary" class="navigation">
 
     <mat-toolbar-row>
-    
-    <span class="title-content">Kanban Board</span>
-    
-    <span class="spacer"></span>
-     <button mat-button routerLink="/register">Sign Up</button>
-     <button mat-button routerLink="/login">Login</button>
-    
-    
-  </mat-toolbar-row>
-  </mat-toolbar>
+
+        <span class="title-content">Kanban Board</span>
+
+        <span class="spacer"></span>
+        <button mat-button routerLink="/register" *ngIf="!isAuthenticated">Sign Up</button>
+        <button mat-button routerLink="/login" *ngIf="!isAuthenticated">Login</button>
+
+        <span class="name" *ngIf="isAuthenticated">User : {{username}}</span>
+        <span *ngIf="isAuthenticated">
+            <button mat-button [matMenuTriggerFor]="menu">
+                <mat-icon style="font-size:50px;margin-top:-25px;">account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
+        </span>
+
+    </mat-toolbar-row>
+</mat-toolbar>
