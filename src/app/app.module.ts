@@ -38,6 +38,7 @@ import { TodopopupComponent } from './todopopup/todopopup.component';
 import { AuthService } from './Authentication/auth.service';
 import { MaterialModule } from './material-module/material.module';
 import { UIService } from './shared/ui.service';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -65,8 +66,9 @@ import { UIService } from './shared/ui.service';
     ExistsComponent,
     CreatedComponent,
     BoardComponent,
-    
+  
     TodopopupComponent,
+    FooterComponent,
   ],
   imports: [
     MDBBootstrapModule.forRoot(),

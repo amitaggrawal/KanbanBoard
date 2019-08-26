@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from 'src/app/services/register.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RegisterModule } from '../Authentication/Registration/register/register.module';
+
 import { CreateModule } from './create.module';
 import { CreateService } from '../services/create.service';
 import { Router} from  '@angular/router';

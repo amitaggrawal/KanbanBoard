@@ -8,6 +8,10 @@ import { AddArtifactComponent } from '../add-artifact/add-artifact.component';
 import { AddSprintComponent } from '../add-sprint/add-sprint.component';
 import { Sprint } from '../services/tasks';
 import { ProductBacklog } from '../services/backlog';
+import GetProjectByIdService from '../createprojectpage/get-project-by-id.service';
+import { ProjectContent } from '../shared/model/project-detail';
+import { HelperUtil } from '../shared/helper.util';
+import { LocalStorageKey } from '../constants/constants';
 
 @Component({
   selector: 'app-sprintupload',
@@ -15,11 +19,13 @@ import { ProductBacklog } from '../services/backlog';
   styleUrls: ['./sprintupload.component.css']
 })
 export class SprintuploadComponent implements OnInit {
+  projectDetail: ProjectContent;
+
   projectname: String = localStorage.getItem('projectname');
   description: String = localStorage.getItem('projectdesc');
   show = 2;
-  show1=2;
-  show2=2;
+  show1 = 2;
+  show2 = 2;
 
 
   fileToBeUpload: File
@@ -32,41 +38,46 @@ export class SprintuploadComponent implements OnInit {
   private showSp = false;
   private showEmpty = true;
   private sprintname: String;
-  private len : number;
-  private len1 : number;
-  private len2 : number;
+  private len: number;
+  private len1: number;
+  private len2: number;
   private artifactname: String;
   private productBacklog = JSON.parse(localStorage.getItem('productbacklog'));
- 
 
 
 
 
 
-  constructor(private sprint: SprintuploadService, private formBuilder: FormBuilder, private router: Router, public nav: NavbarService,
-    public dialog: MatDialog) { }
+
+  constructor(private sprint: SprintuploadService, private formBuilder: FormBuilder, private router: Router,
+    private _getProjectDetailService: GetProjectByIdService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
-    if(localStorage.getItem('userName')==null){
-      this.router.navigate(['/']);
-    }else{
-      var projectId = localStorage.getItem('projectid');
-      this.nav.show();
-      this.sprint.fetchProjectByID({ projectId }).subscribe((res) => {
-        console.log(res);
-        localStorage.setItem('artifactsname', JSON.stringify(res.sprint.artifacts))
-        localStorage.setItem('sprints', JSON.stringify(res.sprint.sprints))
-        localStorage.setItem('backlogitem',JSON.stringify(res.sprint.productBacklog))
-        this.artifactname = JSON.parse(localStorage.getItem('artifactsname'));
-        this.sprintname = JSON.parse(localStorage.getItem('sprints'));
-        this.productBacklog= JSON.parse(localStorage.getItem('backlogitem'));
-        this.len1 = this.artifactname.length;
-        this.len = this.sprintname.length;
-        this.len2 = this.productBacklog.length;
-      })
-    }
+    // if(localStorage.getItem('userName')==null){
+    //   this.router.navigate(['/']);
+    // }else{
+    if(this.projectDetail == null || this.projectDetail == undefined){
+      this.projectDetail = JSON.parse(HelperUtil.getFromLocalStorage(LocalStorageKey.projectDetails));
     
+    }
+
+    var projectId = localStorage.getItem('projectid');
+    
+    this.sprint.fetchProjectByID({ projectId }).subscribe((res) => {
+      console.log(res);
+      localStorage.setItem('artifactsname', JSON.stringify(res.sprint.artifacts))
+      localStorage.setItem('sprints', JSON.stringify(res.sprint.sprints))
+      localStorage.setItem('backlogitem', JSON.stringify(res.sprint.productBacklog))
+      this.artifactname = JSON.parse(localStorage.getItem('artifactsname'));
+      this.sprintname = JSON.parse(localStorage.getItem('sprints'));
+      this.productBacklog = JSON.parse(localStorage.getItem('backlogitem'));
+      this.len1 = this.artifactname.length;
+      this.len = this.sprintname.length;
+      this.len2 = this.productBacklog.length;
+    })
+    // }
+
 
   }
 
@@ -113,7 +124,7 @@ export class SprintuploadComponent implements OnInit {
   }
 
   extractSprint(sprintId) {
-    localStorage.setItem('currentSprint',sprintId);
+    localStorage.setItem('currentSprint', sprintId);
     console.log(sprintId);
     this.sprint.getSprint({ sprintId });
     // this.sprint.getSprint({ sprintId }).subscribe((res) => {
@@ -124,26 +135,26 @@ export class SprintuploadComponent implements OnInit {
     //   console.log(res);
     //   if(res['status']){
     //     this.router.navigate(['/kanban']);
-       
+
     //   }
     // });
   }
 
-  extractProduct(productbacklogid){
+  extractProduct(productbacklogid) {
 
-      var productBacklogId = {
-        "productBacklogId" : productbacklogid
+    var productBacklogId = {
+      "productBacklogId": productbacklogid
+    }
+    this.sprint.getBacklog(productBacklogId).subscribe((res) => {
+      console.log(res);
+      localStorage.setItem('responsebacklog', JSON.stringify(res.productbacklog));
+
+      let backlog = new ProductBacklog(JSON.parse(localStorage.getItem('responsebacklog')));
+      localStorage.setItem('backlogname', backlog.pbName);
+      if (res['status']) {
+        this.router.navigate(['/backlog']);
       }
-      this.sprint.getBacklog(productBacklogId).subscribe((res)=>{
-        console.log(res);
-        localStorage.setItem('responsebacklog',JSON.stringify(res.productbacklog));
-
-        let backlog = new ProductBacklog(JSON.parse(localStorage.getItem('responsebacklog')));
-        localStorage.setItem('backlogname',backlog.pbName);
-        if(res['status']){
-          this.router.navigate(['/backlog']);
-        }
-      })
+    })
   }
 
   // sprintdisplay(){
@@ -180,34 +191,34 @@ export class SprintuploadComponent implements OnInit {
     })
   }
 
-  showArtifact() {
-    var projectId = localStorage.getItem('projectid');
-    console.log(projectId);
-    this.sprint.fetchProjectByID({ projectId }).subscribe((res) => {
-      console.log(res);
-      localStorage.setItem('artifactsname', JSON.stringify(res.sprint.artifacts))
-      this.artifactname = JSON.parse(localStorage.getItem('artifactsname'));
-      this.len1 = this.artifactname.length;
-      console.log(this.artifactname);
-    })
+  // showArtifact() {
+  //   var projectId = localStorage.getItem('projectid');
+  //   console.log(projectId);
+  //   this.sprint.fetchProjectByID({ projectId }).subscribe((res) => {
+  //     console.log(res);
+  //     localStorage.setItem('artifactsname', JSON.stringify(res.sprint.artifacts))
+  //     this.artifactname = JSON.parse(localStorage.getItem('artifactsname'));
+  //     this.len1 = this.artifactname.length;
+  //     console.log(this.artifactname);
+  //   })
 
-    if (this.showArt == false) {
-      this.showArt = true;
-      this.showSp = false;
-      this.showEmpty = false;
-    }
-  }
+  //   if (this.showArt == false) {
+  //     this.showArt = true;
+  //     this.showSp = false;
+  //     this.showEmpty = false;
+  //   }
+  // }
 
-  showSprint() {
-    if (this.showSp == false) {
-      this.showSp = true;
-      this.showArt = false;
-      this.showEmpty = false;
-      this.sprintname = JSON.parse(localStorage.getItem('sprints'));
-      this.len = this.sprintname.length;
-      console.log(this.sprintname);
-    }
-  }
+  // showSprint() {
+  //   if (this.showSp == false) {
+  //     this.showSp = true;
+  //     this.showArt = false;
+  //     this.showEmpty = false;
+  //     this.sprintname = JSON.parse(localStorage.getItem('sprints'));
+  //     this.len = this.sprintname.length;
+  //     console.log(this.sprintname);
+  //   }
+  // }
 }
 
 

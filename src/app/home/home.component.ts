@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavbarService } from '../services/navbar.service'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,18 +7,14 @@ import { NavbarService } from '../services/navbar.service'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router:Router, public nav: NavbarService) { }
+  constructor() { }
 
   ngOnInit() {
-    if(localStorage.getItem('userName') != null){
-      this.router.navigate(['/welcome']);
-    }else{
-      this.nav.show();
-    }
+    // if(localStorage.getItem('userName') != null){
+    //   this.router.navigate(['/welcome']);
+    // }else{
+    //   this.nav.show();
+    // }
    
   }
-  redirect(){
-    this.router.navigate(['/login'])
-  }
-
 }

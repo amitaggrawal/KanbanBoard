@@ -5,9 +5,9 @@
   <div class="medium-list">
     <mat-card class="mat-elevation-z8" style="background-color:#eeecec;width:70%;height:100%;margin:auto;">
       <div>
+       
         <br />
-        <br />
-        <div> 
+        <div>
           <mat-icon class="accounts">account_circle</mat-icon>
         </div>
         <br />
@@ -30,13 +30,12 @@
             <div class="errormsg" *ngIf="displayError==true">
               {{error_msg}}
             </div>
-            <br/>
-            <button mat-button type="submit" class="mat-raised-button mat-primary"
-              [disabled]="!loginForm.valid">Login</button><button mat-button routerLink="/register" class="divider">Not
-              a member? Sign up</button>
+            <br />
+            <button mat-button type="submit" class="mat-raised-button mat-primary" [disabled]="!loginForm.valid">Login</button>
+            <button mat-button routerLink="/register" class="divider">Not a member? Sign up</button>
           </div>
         </form>
-        <br/><br/>
+        <br /><br />
       </div>
     </mat-card>
 

@@ -12,6 +12,7 @@ export class CreatedComponent implements OnInit {
   ngOnInit() {
   }
   onNoClick(){
+    
     window.location.reload();
   }
 
